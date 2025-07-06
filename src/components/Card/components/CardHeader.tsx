@@ -1,7 +1,7 @@
+import renderMarkdownText from '@/utils/renderMarkdownBody'
 import { useContext } from 'react'
 import { CardDataCtx } from '../cardContexts'
 import * as S from '../styles'
-import renderEnrichedText from '@/utils/renderCardBody'
 
 
 export default function CardHeader() {
@@ -10,7 +10,7 @@ export default function CardHeader() {
 	return (
 		<S.CardHeader>
 			<S.CardName>
-				{cardData.name} {renderEnrichedText(cardData.actions)}
+				{cardData.name} {renderMarkdownText(cardData.actions)}
 			</S.CardName>
 			<S.TypeLevel>
 				{cardData.type} {cardData.level}

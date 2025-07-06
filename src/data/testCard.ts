@@ -36,3 +36,14 @@ export const hornOfBlasting: CardData = {
 	body: 'Price 700 gp\nUsage held in 1 hand; Bulk L\n-\nA horn of blasting is a bright brass trumpet. It can be played as an instrument, granting a +2 item bonus to your Performance check.\nActivate (a) Interact; Frequency once per round; Effect When you activate the horn by blowing into it with destructive intent, you create a blast note targeting one creature or object within 30 feet. The blast deals 3d6 sonic damage. (DC 28 basic Fortitude save).\nActivate (aa) Interact; Frequency once per day; Effect You can blow even louder to create an intense blast wave in a 30-foot cone that deals 8d6 sonic damage. Each creature attempts a DC 28 Fortitude save with the following effects.\nCritical Success The creature takes no damage.\nSuccess The creature takes half damage.\nFailure The creature takes full damage and is deafened for 2d6 rounds.',
 	numberToPrint: 1,
 }
+
+export const markdownTestCard: CardData = {
+	id: 'markdown-test-001',
+	name: 'Markdown Test Spell',
+	type: 'spell',
+	level: 3,
+	traits: 'abjuration,arcane,spell',
+	actions: '2a',
+	body: '# Markdown Test Spell\n\n**School** Abjuration; **Level** 3\n\n## Description\n\nThis spell demonstrates the new **markdown support** in the card system. You can now use:\n\n- **Bold text** for emphasis\n- *Italic text* for flavor\n- `Code snippets` for mechanics\n- Lists like this one\n\n### Effects\n\n1. **Primary Effect**: Target gains +2 to AC\n2. **Secondary Effect**: Target is *protected* from evil\n3. **Duration**: 1 minute per level\n\n> *"A shimmering barrier of pure light surrounds the target, warding off evil influences."*\n\n## Casting\n\n**Casting Time**: 2 actions\n**Range**: Touch\n**Target**: 1 creature\n\n### Save Results\n- **Critical Success**: Target is unaffected\n- **Success**: Target gains +1 to AC\n- **Failure**: Target gains +2 to AC\n- **Critical Failure**: Target gains +3 to AC\n\n---\n\n**Note**: This card demonstrates all the markdown features while preserving the existing **keyword emphasis** system for game terms like "AC", "actions", and "creature".',
+	numberToPrint: 1,
+}

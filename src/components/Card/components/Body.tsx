@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import renderEnrichedText from '@/utils/renderCardBody'
+import renderMarkdownText from '@/utils/renderMarkdownBody'
 import { CardDataCtx, CardDimensionsCtx } from '../cardContexts'
 import * as S from '../styles'
 
@@ -10,6 +10,6 @@ export default function Body() {
 	const { width } = useContext(CardDimensionsCtx)
 
 	return (
-		<S.Body width={width}>{renderEnrichedText(body, width)}</S.Body>
+		<S.Body width={width}>{renderMarkdownText(body, width)}</S.Body>
 	)
 }

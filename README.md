@@ -10,6 +10,21 @@ What this app allows you is to write, save, edit and print your own TTRPG cards.
 Basically you just create a new project (set of cards, you can have multiple and switch them around), click on Create card, fill in fields that give sense to you, save card.
 When you are ready to print you cards, just Display project, and use printing interface of your browser (usually Ctrl+P).
 
+## Markdown Support
+
+The card body field now supports **Markdown formatting**! You can use:
+
+- **Bold text** with `**text**` or `__text__`
+- *Italic text* with `*text*` or `_text_`
+- `Code snippets` with backticks
+- Headers with `#`, `##`, `###`, etc.
+- Lists with `-` or `1.`
+- Blockquotes with `>`
+- Tables
+- And more!
+
+The markdown support integrates seamlessly with the existing keyword emphasis system, so game terms like "AC", "actions", "creature", etc. will still be automatically emphasized.
+
 ## How can I run the app on my computer
 
 Download the code through GitHub interface. Install [NPM](https://www.npmjs.com/). In the ccde directory, run the app:

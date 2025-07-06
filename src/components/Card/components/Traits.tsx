@@ -17,5 +17,5 @@ export default function Traits() {
 function Trait({ trait }: { trait: string }) {
 	const { width } = useContext(CardDimensionsCtx)
 
-	return <S.Trait width={width}>{trait}</S.Trait>
+	return <S.Trait width={width} trait={trait}>{trait.toUpperCase()}</S.Trait>
 }
