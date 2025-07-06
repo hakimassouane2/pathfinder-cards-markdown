@@ -1,6 +1,5 @@
-import { useRouter } from 'next/navigation'
 import { Pages } from '@/enums/pages'
-import { useProjectActions, useNumberToPrint } from '@/stores/projectStore'
+import { useNumberToPrint, useProjectActions } from '@/stores/projectStore'
 import {
 	FlexColumn,
 	FlexRow,
@@ -8,6 +7,7 @@ import {
 	PrimaryButtonRound,
 } from '@/styles/commonStyledComponents'
 import { isNumber } from '@/utils/utils'
+import { useRouter } from 'next/navigation'
 
 import * as S from './styles'
 
@@ -52,24 +52,24 @@ export const CardControlWrapper = ({ cardIndex, children }: Props) => {
 			<S.ButtonsRow>
 				<FlexRow>
 					<PrimaryButtonRound
-						title={'Increase number of cards to print'}
+						title={'Augmenter le nombre de cartes à imprimer'}
 						onClick={handleIncreaseNumber}
 					>
 						+
 					</PrimaryButtonRound>
 					{numberToPrint}
 					<PrimaryButtonRound
-						title={'Decrease number of cards to print'}
+						title={'Diminuer le nombre de cartes à imprimer'}
 						onClick={handleDecreaseNumber}
 					>
 						-
 					</PrimaryButtonRound>
 				</FlexRow>
 				<PrimaryButton
-					title="Delete this card"
+					title="Supprimer cette carte"
 					onClick={() => removeCardByIndex(cardIndex)}
 				>
-					Delete
+					Supprimer
 				</PrimaryButton>
 			</S.ButtonsRow>
 		</FlexColumn>

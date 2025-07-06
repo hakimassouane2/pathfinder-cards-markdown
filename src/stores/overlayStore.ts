@@ -30,7 +30,7 @@ const useOverlayStore = create<OverlayStore>((set, get) => ({
 			set(() => {
 				console.log('settin overlay')
 				return {
-					label: 'Save Project As',
+					label: 'Sauvegarder sous',
 					data: null,
 					overlayType: 'input',
 					onFinish: saveProjectAsAction
@@ -48,7 +48,7 @@ const useOverlayStore = create<OverlayStore>((set, get) => ({
 				)
 
 				return {
-					label: 'Load Project',
+					label: 'Charger un projet',
 					data: projectNames,
 					overlayType: 'listChoice',
 					onFinish: loadProjectAsAction,

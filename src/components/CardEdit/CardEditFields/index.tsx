@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react'
-import * as S from './styles'
 import Input from '../../Input'
+import * as S from './styles'
 
 
 interface Props {
@@ -37,7 +37,7 @@ export default function CardEditFields({ cardData, onSaveCardData }: Props) {
 	return (
 		<S.CardEdit>
 			<Input
-				label="Name:"
+				label="Nom:"
 				value={cardData?.name ?? ''}
 				onChange={handleNameChange}
 			/>
@@ -57,7 +57,7 @@ export default function CardEditFields({ cardData, onSaveCardData }: Props) {
 				onChange={handleTypeChange}
 			/>
 			<Input
-				label="Level:"
+				label="Niveau:"
 				value={cardData?.level.toString() ?? ''}
 				onChange={handleLevelChange}
 			/>

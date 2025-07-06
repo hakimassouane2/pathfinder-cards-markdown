@@ -1,7 +1,7 @@
-import { PrimaryButton, PrimaryLink } from '@/styles/commonStyledComponents'
 import { Pages } from '@/enums/pages'
-import { useProjectActions, useProjectName } from '@/stores/projectStore'
 import { useOverlayActions } from '@/stores/overlayStore'
+import { useProjectActions, useProjectName } from '@/stores/projectStore'
+import { PrimaryButton, PrimaryLink } from '@/styles/commonStyledComponents'
 
 
 export default function LeftMenu() {
@@ -13,35 +13,35 @@ export default function LeftMenu() {
 	return (
 		<>
 			{projectNameExists && (
-				<PrimaryLink href={Pages.home}>Project</PrimaryLink>
+				<PrimaryLink href={Pages.home}>Projet</PrimaryLink>
 			)}
 
 			{projectNameExists && (
-				<PrimaryLink href={Pages.createCard}>Create a new card</PrimaryLink>
+				<PrimaryLink href={Pages.createCard}>Créer une carte</PrimaryLink>
 			)}
 
 			{projectNameExists && (
-				<PrimaryLink href={Pages.importCard}>Import a new card</PrimaryLink>
+				<PrimaryLink href={Pages.importCard}>Importer une carte</PrimaryLink>
 			)}
 
 			{projectNameExists && (
-				<PrimaryButton onClick={saveProject}>Save project</PrimaryButton>
+				<PrimaryButton onClick={saveProject}>Sauvegarder</PrimaryButton>
 			)}
 
 			{projectNameExists && (
 				<PrimaryButton onClick={() => showSaveProjectAsOverlay()}>
-					Save project as
+					Sauvegarder sous
 				</PrimaryButton>
 			)}
 
 			{projectNameExists && (
 				<PrimaryButton onClick={() => showLoadProjectOverlay()}>
-					Load project
+					Charger un projet
 				</PrimaryButton>
 			)}
 
 			{projectNameExists && (
-				<PrimaryLink href={Pages.printView}>Print view</PrimaryLink>
+				<PrimaryLink href={Pages.printView}>Impression</PrimaryLink>
 			)}
 		</>
 	)

@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { FlexRow, OverlayWrapper } from '@/styles/commonStyledComponents'
+import { useState } from 'react'
 
 import Input from '../Input'
 import * as S from './styles'
@@ -18,7 +18,7 @@ export default function WelcomeScreen({ onFinished }: Props) {
 			<S.Message>{welcomeMessage}</S.Message>
 			<FlexRow>
 				<Input
-					label="Project name"
+					label="Nom du projet"
 					value={newProjectName}
 					buttonText="OK"
 					onButtonClick={() => onFinished(newProjectName)}
@@ -29,8 +29,8 @@ export default function WelcomeScreen({ onFinished }: Props) {
 	)
 }
 
-const welcomeMessage = `Welcome to RPG card creator! You can use this page to import or create printable action cards for your spells, abilities, items - or anything else you can imagine.
+const welcomeMessage = `Bienvenue dans le créateur de cartes RPG! Vous pouvez utiliser cette page pour importer ou créer des cartes imprimables pour vos sorts, compétences, objets - ou tout ce que vous pouvez imaginer.
 \n
-First you have to choose a name for your new project, then you can start creating the cards right away.
+Tout d'abord, vous devez choisir un nom pour votre nouveau projet, puis vous pouvez commencer à créer les cartes.
 
 `

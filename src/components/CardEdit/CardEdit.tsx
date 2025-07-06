@@ -1,18 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-import {
-	PageColumn,
-	Label,
-	PrimaryButton,
-} from '@/styles/commonStyledComponents'
 import { emptyCard } from '@/data/emptyCard'
 import { useProjectActions } from '@/stores/projectStore'
+import {
+	Label,
+	PageColumn,
+	PrimaryButton,
+} from '@/styles/commonStyledComponents'
 import { isCardData } from '@/utils/cardUtils'
+import { useState } from 'react'
 
-import * as S from './styles'
 import Card from '../Card'
 import CardEditFields from './CardEditFields'
+import * as S from './styles'
 
 
 interface Props {
@@ -53,7 +53,7 @@ export default function CardEdit({ initialCard, cardIndex }: Props) {
 	return (
 		<S.CardImport>
 			<PageColumn>
-				<Label>Paste data in correct format:</Label>
+				<Label>Coller les données dans le format correct:</Label>
 				<S.CardImportTextArea
 					value={jsonValue}
 					onChange={(event) => transformData(event.target.value)}
@@ -65,11 +65,11 @@ export default function CardEdit({ initialCard, cardIndex }: Props) {
 			<PageColumn>
 				<Card cardData={cardData} />
 				<PrimaryButton disabled={!cardData} onClick={handleOnSaveClick}>
-					Save Card
+					Sauvegarder
 				</PrimaryButton>
 				{typeof cardIndex === 'number' && (
 					<PrimaryButton onClick={() => removeCardByIndex(cardIndex)}>
-						Remove Card
+						Supprimer
 					</PrimaryButton>
 				)}
 			</PageColumn>
