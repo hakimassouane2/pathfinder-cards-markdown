@@ -1,9 +1,9 @@
 'use client'
 
-import { standardFFG } from '@/data/cardDimension'
-import { CardDimensionsCtx } from '@/components/Card/cardContexts'
-import { useCards } from '@/stores/projectStore'
 import Card from '@/components/Card'
+import { CardDimensionsCtx } from '@/components/Card/cardContexts'
+import { standardFFG } from '@/data/cardDimension'
+import { useCards } from '@/stores/projectStore'
 
 import * as S from './styles'
 
@@ -12,14 +12,15 @@ export default function Home() {
 		for (let i = 0; i < card.numberToPrint; i++) {
 			collection.push(card)
 		}
-
 		return collection
 	}, [])
+
+	const sortedCardsToPrint = cardsToPrint.slice().sort((a, b) => a.name.localeCompare(b.name))
 
 	return (
 		<CardDimensionsCtx.Provider value={standardFFG}>
 			<S.PrintView>
-				{cardsToPrint.map((card, index) => (
+				{sortedCardsToPrint.map((card, index) => (
 					<Card cardData={card} key={index} />
 				))}
 			</S.PrintView>
