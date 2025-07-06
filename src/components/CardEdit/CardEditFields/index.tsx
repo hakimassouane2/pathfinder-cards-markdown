@@ -1,15 +1,19 @@
-import { ChangeEvent } from 'react'
+import { useState } from 'react'
+import ReactMde from 'react-mde'
+import 'react-mde/lib/styles/css/react-mde-all.css'
+import Showdown from 'showdown'
 import Input from '../../Input'
 import * as S from './styles'
-
 
 interface Props {
 	cardData: CardData | undefined
 	onSaveCardData: (cardData: CardData) => void
 }
 
-
 export default function CardEditFields({ cardData, onSaveCardData }: Props) {
+	const [selectedTab, setSelectedTab] = useState<'write' | 'preview'>('write')
+	const converter = new Showdown.Converter()
+
 	const handleNameChange = (value: string) => {
 		cardData && onSaveCardData({ ...cardData, name: value })
 	}
@@ -28,10 +32,6 @@ export default function CardEditFields({ cardData, onSaveCardData }: Props) {
 
 	const handleLevelChange = (value: string) => {
 		cardData && onSaveCardData({ ...cardData, level: value })
-	}
-
-	const handleBodyChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		cardData && onSaveCardData({ ...cardData, body: event.target.value })
 	}
 
 	return (
@@ -61,7 +61,19 @@ export default function CardEditFields({ cardData, onSaveCardData }: Props) {
 				value={cardData?.level.toString() ?? ''}
 				onChange={handleLevelChange}
 			/>
-			<S.TextArea value={cardData?.body ?? ''} onChange={handleBodyChange} />
+			<div style={{ marginTop: 10 }}>
+				<label>Corps de la carte:</label>
+				<ReactMde
+					value={cardData?.body ?? ''}
+					onChange={value => cardData && onSaveCardData({ ...cardData, body: value })}
+					selectedTab={selectedTab}
+					onTabChange={setSelectedTab}
+					generateMarkdownPreview={markdown => Promise.resolve(converter.makeHtml(markdown))}
+					childProps={{
+						writeButton: { tabIndex: -1 },
+					}}
+				/>
+			</div>
 		</S.CardEdit>
 	)
 }

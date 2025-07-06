@@ -47,3 +47,5 @@ interface OverlayListChoiceData {
 	items: string[]
 	onClick: (value: any) => void
 }
+
+declare module 'showdown';
