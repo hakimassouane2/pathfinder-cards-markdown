@@ -711,6 +711,7 @@ export default function CardEditFields({ cardData, onSaveCardData }: Props) {
           <option value="Cantrip">Cantrip</option>
           <option value="Créature">Créature</option>
           <option value="Don">Don</option>
+          <option value="Focalisé">Focalisé</option>
           <option value="Objet">Objet</option>
           <option value="Sort">Sort</option>
         </S.StyledSelect>
