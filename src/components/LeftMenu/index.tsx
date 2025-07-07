@@ -1,7 +1,7 @@
-import { Pages } from '@/enums/pages'
-import { useOverlayActions } from '@/stores/overlayStore'
-import { useProjectActions, useProjectName } from '@/stores/projectStore'
-import { PrimaryButton, PrimaryLink } from '@/styles/commonStyledComponents'
+import { Pages } from "@/enums/pages"
+import { useOverlayActions } from "@/stores/overlayStore"
+import { useProjectActions, useProjectName } from "@/stores/projectStore"
+import { PrimaryButton, PrimaryLink } from "@/styles/commonStyledComponents"
 
 
 export default function LeftMenu() {

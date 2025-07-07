@@ -1,11 +1,11 @@
-'use client'
+"use client"
 
-import Card from '@/components/Card'
-import { PrimaryLink } from '@/styles/commonStyledComponents'
-import { useCards } from '@/stores/projectStore'
-import { Pages } from '@/enums/pages'
+import Card from "@/components/Card"
+import { PrimaryLink } from "@/styles/commonStyledComponents"
+import { useCards } from "@/stores/projectStore"
+import { Pages } from "@/enums/pages"
 
-import * as S from './styles'
+import * as S from "./styles"
 
 
 interface Props {

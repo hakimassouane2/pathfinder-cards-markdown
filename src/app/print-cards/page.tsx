@@ -28,7 +28,7 @@ export default function Home() {
       <S.PrintView>
         {sortedCardsToPrint.map(({ card, originalIndex }, index) => (
           // TODO: Replace this with a CardControlWrapper if you want navigation/editing
-          <Card cardData={card} key={index} cardIndex={originalIndex} />
+          <Card cardData={card} key={index} />
         ))}
       </S.PrintView>
     </CardDimensionsCtx.Provider>

@@ -1,9 +1,9 @@
-import { create } from 'zustand'
+import { create } from "zustand"
 import {
 	loadCurrentProjectFromLs,
 	loadProjectFromLs,
 	saveProjectToLs,
-} from '../utils/localStorage'
+} from "../utils/localStorage"
 
 
 interface ProjectStore {
@@ -26,7 +26,7 @@ interface ProjectActions {
 
 const getInitialProject = (): Project => {
 	return {
-		projectName: '',
+		projectName: "",
 		cards: [],
 	}
 }

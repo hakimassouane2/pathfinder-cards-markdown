@@ -1,12 +1,12 @@
-'use client'
+"use client"
 
-import { useContext } from 'react'
+import { useContext } from "react"
 
-import { CardDataCtx, CardDimensionsCtx } from './cardContexts'
-import CardHeader from './components/CardHeader'
-import Traits from './components/Traits'
-import Body from './components/Body'
-import * as S from './styles'
+import { CardDataCtx, CardDimensionsCtx } from "./cardContexts"
+import CardHeader from "./components/CardHeader"
+import Traits from "./components/Traits"
+import Body from "./components/Body"
+import * as S from "./styles"
 
 
 interface Props {

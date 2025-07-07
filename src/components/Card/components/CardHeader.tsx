@@ -1,7 +1,7 @@
-import renderMarkdownText from '@/utils/renderMarkdownBody'
-import { useContext } from 'react'
-import { CardDataCtx } from '../cardContexts'
-import * as S from '../styles'
+import renderMarkdownText from "@/utils/renderMarkdownBody"
+import { useContext } from "react"
+import { CardDataCtx } from "../cardContexts"
+import * as S from "../styles"
 
 
 export default function CardHeader() {

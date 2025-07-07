@@ -1,10 +1,10 @@
-import { createGlobalStyle, css, styled } from 'styled-components'
+import { createGlobalStyle, css, styled } from "styled-components"
 
 
 /* COLORS */
 export const Colors = {
-	DarkRed: '#5d0000',
-	DarkRedDisabled: '#bda0a0',
+	DarkRed: "#5d0000",
+	DarkRedDisabled: "#bda0a0",
 } as const
 
 

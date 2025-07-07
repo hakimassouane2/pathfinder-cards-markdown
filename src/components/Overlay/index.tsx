@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import { CancelButton, Label, OverlayWrapper } from '@/styles/commonStyledComponents'
+import { useState } from "react"
+import { CancelButton, Label, OverlayWrapper } from "@/styles/commonStyledComponents"
 
-import Input from '../Input'
-import * as S from './styles'
-import { useOverlayActions, useOverlayData } from '@/stores/overlayStore'
+import Input from "../Input"
+import * as S from "./styles"
+import { useOverlayActions, useOverlayData } from "@/stores/overlayStore"
 
 
 export default function Overlay() {
-	const [inputValue, setInputValue] = useState('')
+	const [inputValue, setInputValue] = useState("")
 	const { hideOverlay } = useOverlayActions()
 	const { label, data, overlayType, onFinish } = useOverlayData()
 
@@ -16,7 +16,7 @@ export default function Overlay() {
 			onFinish(value)
 			hideOverlay()
 		} else {
-			console.error('Null function encountered in Overlay')
+			console.error("Null function encountered in Overlay")
 		}
 	}
 
@@ -28,21 +28,21 @@ export default function Overlay() {
 					{label && <Label>{label}</Label>}
 					<CancelButton onClick={hideOverlay} />
 				</S.Header>
-				{overlayType === 'input' ? (
+				{overlayType === "input" ? (
 					<Input
 						value={inputValue}
 						buttonText="OK"
 						onChange={setInputValue}
 						onButtonClick={() => handleOnClick(inputValue)}
 					/>
-				) : overlayType === 'listChoice' ? (
+				) : overlayType === "listChoice" ? (
 					(data as string[]).map((value, index) => (
 						<div key={index} onClick={() => handleOnClick(value)}>
 							{value}
 						</div>
 					))
 				) : (
-					''
+					""
 				)}
 			</S.InputWrapper>
 		</OverlayWrapper>

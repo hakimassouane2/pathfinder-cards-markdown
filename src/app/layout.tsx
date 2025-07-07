@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import StyledComponentsRegistry from '@/utils/styledComponentsRegistry'
-import LeftMenu from '@/components/LeftMenu'
+import StyledComponentsRegistry from "@/utils/styledComponentsRegistry"
+import LeftMenu from "@/components/LeftMenu"
 
-import * as S from './styles'
-import '../styles/fonts.css'
-import { useEffect, useState } from 'react'
-import { useProjectActions, useProjectName } from '@/stores/projectStore'
-import Overlay from '@/components/Overlay'
-import { useShowOverlay } from '@/stores/overlayStore'
-import WelcomeScreen from '@/components/WelcomeScreen'
+import * as S from "./styles"
+import "../styles/fonts.css"
+import { useEffect, useState } from "react"
+import { useProjectActions, useProjectName } from "@/stores/projectStore"
+import Overlay from "@/components/Overlay"
+import { useShowOverlay } from "@/stores/overlayStore"
+import WelcomeScreen from "@/components/WelcomeScreen"
 
 interface Props {
 	children: React.ReactNode
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Props) {
 	useEffect(() => {
 		if (
 			!hasInitializedStore &&
-			typeof window !== 'undefined' &&
+			typeof window !== "undefined" &&
 			!!loadCurrentProject
 		) {
 			loadCurrentProject()

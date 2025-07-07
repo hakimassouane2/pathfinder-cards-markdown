@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import CardEdit from '@/components/CardEdit/CardEdit'
-import { emptyCard } from '@/data/emptyCard'
-import { useCards } from '@/stores/projectStore'
+import CardEdit from "@/components/CardEdit/CardEdit"
+import { emptyCard } from "@/data/emptyCard"
+import { useCards } from "@/stores/projectStore"
 
 interface Props {
 	params: {

@@ -1,15 +1,15 @@
-import { Pages } from '@/enums/pages'
-import { useNumberToPrint, useProjectActions } from '@/stores/projectStore'
+import { Pages } from "@/enums/pages"
+import { useNumberToPrint, useProjectActions } from "@/stores/projectStore"
 import {
 	FlexColumn,
 	FlexRow,
 	PrimaryButton,
 	PrimaryButtonRound,
-} from '@/styles/commonStyledComponents'
-import { isNumber } from '@/utils/utils'
-import { useRouter } from 'next/navigation'
+} from "@/styles/commonStyledComponents"
+import { isNumber } from "@/utils/utils"
+import { useRouter } from "next/navigation"
 
-import * as S from './styles'
+import * as S from "./styles"
 
 interface Props {
 	cardIndex: number
@@ -52,14 +52,14 @@ export const CardControlWrapper = ({ cardIndex, children }: Props) => {
 			<S.ButtonsRow>
 				<FlexRow>
 					<PrimaryButtonRound
-						title={'Augmenter le nombre de cartes à imprimer'}
+						title={"Augmenter le nombre de cartes à imprimer"}
 						onClick={handleIncreaseNumber}
 					>
 						+
 					</PrimaryButtonRound>
 					{numberToPrint}
 					<PrimaryButtonRound
-						title={'Diminuer le nombre de cartes à imprimer'}
+						title={"Diminuer le nombre de cartes à imprimer"}
 						onClick={handleDecreaseNumber}
 					>
 						-

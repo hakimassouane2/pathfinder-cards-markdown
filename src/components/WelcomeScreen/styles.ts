@@ -1,5 +1,5 @@
-import { fontGoodRegular, traitStyle } from '@/styles/commonStyles'
-import { styled } from 'styled-components'
+import { fontGoodRegular, traitStyle } from "@/styles/commonStyles"
+import { styled } from "styled-components"
 
 
 export const Message = styled.div`

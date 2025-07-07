@@ -1,5 +1,5 @@
-export const projectPrefix = 'rpgCards_project_'
-const currentProjectNameKey = 'rpgCards_currentProject'
+export const projectPrefix = "rpgCards_project_"
+const currentProjectNameKey = "rpgCards_currentProject"
 
 export function saveProjectToLs(project: Project): void {
 	try {
@@ -7,7 +7,7 @@ export function saveProjectToLs(project: Project): void {
 		localStorage.setItem(projectPrefix + project.projectName, serializedData)
 		saveCurrentProjectNameToLs(project.projectName)
 	} catch (error) {
-		console.error('Error saving cards to local storage:', error)
+		console.error("Error saving cards to local storage:", error)
 	}
 }
 
@@ -30,7 +30,7 @@ export function loadCurrentProjectFromLs(): Project | undefined {
 	const currentProjectName = localStorage.getItem(currentProjectNameKey)
 
 	if (!currentProjectName) {
-		console.error('Current project name could not be retreived.')
+		console.error("Current project name could not be retreived.")
 	}
 
 	const project = localStorage.getItem(projectPrefix + currentProjectName)
@@ -44,6 +44,6 @@ export function saveCurrentProjectNameToLs(currentProjectName: string): void {
 	try {
 		localStorage.setItem(currentProjectNameKey, currentProjectName)
 	} catch (error) {
-		console.error('Error saving current project name:', error)
+		console.error("Error saving current project name:", error)
 	}
 }

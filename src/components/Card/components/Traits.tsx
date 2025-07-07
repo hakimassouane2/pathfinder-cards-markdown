@@ -1,12 +1,12 @@
-import { useContext } from 'react'
-import { CardDataCtx, CardDimensionsCtx } from '../cardContexts'
-import * as S from '../styles'
+import { useContext } from "react"
+import { CardDataCtx, CardDimensionsCtx } from "../cardContexts"
+import * as S from "../styles"
 
 export default function Traits() {
 	const { traits } = useContext(CardDataCtx)
 
 	const styledTraits = traits
-		.split(',')
+		.split(",")
 		.map((trait, index) => <Trait trait={trait} key={index} />)
 
 	return <S.Traits>{traits ? styledTraits : null}</S.Traits>

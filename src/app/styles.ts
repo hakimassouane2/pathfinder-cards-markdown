@@ -1,5 +1,5 @@
-import { Colors, doNotPrint, fontGoodRegular } from '@/styles/commonStyles'
-import { styled } from 'styled-components'
+import { Colors, doNotPrint, fontGoodRegular } from "@/styles/commonStyles"
+import { styled } from "styled-components"
 
 
 export const PrintPage = styled.div`

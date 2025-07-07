@@ -1,18 +1,18 @@
-'use client'
+"use client"
 
-import { emptyCard } from '@/data/emptyCard'
-import { useProjectActions } from '@/stores/projectStore'
+import { emptyCard } from "@/data/emptyCard"
+import { useProjectActions } from "@/stores/projectStore"
 import {
 	Label,
 	PageColumn,
 	PrimaryButton,
-} from '@/styles/commonStyledComponents'
-import { isCardData } from '@/utils/cardUtils'
-import { useState } from 'react'
+} from "@/styles/commonStyledComponents"
+import { isCardData } from "@/utils/cardUtils"
+import { useState } from "react"
 
-import Card from '../Card'
-import CardEditFields from './CardEditFields'
-import * as S from './styles'
+import Card from "../Card"
+import CardEditFields from "./CardEditFields"
+import * as S from "./styles"
 
 
 interface Props {
@@ -67,7 +67,7 @@ export default function CardEdit({ initialCard, cardIndex }: Props) {
 				<PrimaryButton disabled={!cardData} onClick={handleOnSaveClick}>
 					Sauvegarder
 				</PrimaryButton>
-				{typeof cardIndex === 'number' && (
+				{typeof cardIndex === "number" && (
 					<PrimaryButton onClick={() => removeCardByIndex(cardIndex)}>
 						Supprimer
 					</PrimaryButton>

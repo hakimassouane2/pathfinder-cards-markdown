@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components'
-import { Colors, traitStyle } from './commonStyles'
-import Link from 'next/link'
+import styled, { css } from "styled-components"
+import { Colors, traitStyle } from "./commonStyles"
+import Link from "next/link"
 
 
 const primaryStyle = css`

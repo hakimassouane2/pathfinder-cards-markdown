@@ -1,10 +1,10 @@
-import { czechKeywords, czechNumericKeywords, keywords, numericKeywords } from '@/data/keyWords'
-import { Hr, Paragraph } from '@/styles/commonStyledComponents'
-import { actionIcons, createActionIcon } from './createActionIcon'
+import { czechKeywords, czechNumericKeywords, keywords, numericKeywords } from "@/data/keyWords"
+import { Hr, Paragraph } from "@/styles/commonStyledComponents"
+import { actionIcons, createActionIcon } from "./createActionIcon"
 
 export default function renderEnrichedText(text: string, cardWidth?: number) {
 	const emphasizeWords = (paragraph: string) => {
-		const words = paragraph.split(' ')
+		const words = paragraph.split(" ")
 		const actionIndex = words.findIndex((word) =>
 			Object.keys(actionIcons).includes(word),
 		)
@@ -38,10 +38,10 @@ export default function renderEnrichedText(text: string, cardWidth?: number) {
 
 
 	const createParagrahps = () => {
-		const paragraphs = text.split('\n')
+		const paragraphs = text.split("\n")
 
 		return paragraphs.map((paragraph, index) => {
-			return paragraph === '-' && index < paragraphs.length ? (
+			return paragraph === "-" && index < paragraphs.length ? (
 				<Hr key={index} />
 			) : (
 				<Paragraph key={index}>{emphasizeWords(paragraph)}</Paragraph>

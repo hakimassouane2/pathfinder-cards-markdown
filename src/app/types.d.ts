@@ -27,7 +27,7 @@ interface CardDimensions {
 	height: number
 }
 
-type OverlayType = 'input' | 'listChoice'
+type OverlayType = "input" | "listChoice"
 
 interface OverlayData {
 	label: string | null
@@ -48,4 +48,4 @@ interface OverlayListChoiceData {
 	onClick: (value: any) => void
 }
 
-declare module 'showdown';
+declare module "showdown";

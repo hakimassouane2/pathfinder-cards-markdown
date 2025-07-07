@@ -1,8 +1,8 @@
-import { FlexRow, OverlayWrapper } from '@/styles/commonStyledComponents'
-import { useState } from 'react'
+import { FlexRow, OverlayWrapper } from "@/styles/commonStyledComponents"
+import { useState } from "react"
 
-import Input from '../Input'
-import * as S from './styles'
+import Input from "../Input"
+import * as S from "./styles"
 
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 
 export default function WelcomeScreen({ onFinished }: Props) {
-	const [newProjectName, setNewProjectName] = useState<string>('')
+	const [newProjectName, setNewProjectName] = useState<string>("")
 
 	return (
 		<OverlayWrapper>

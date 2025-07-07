@@ -1,5 +1,5 @@
-import { Label } from '@/styles/commonStyledComponents'
-import * as S from './styles'
+import { Label } from "@/styles/commonStyledComponents"
+import * as S from "./styles"
 
 interface Props {
 	label?: string

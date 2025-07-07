@@ -1,6 +1,6 @@
-import { projectPrefix } from '@/utils/localStorage'
-import { create } from 'zustand'
-import { loadProjectAsAction, saveProjectAsAction } from './projectStore'
+import { projectPrefix } from "@/utils/localStorage"
+import { create } from "zustand"
+import { loadProjectAsAction, saveProjectAsAction } from "./projectStore"
 
 
 interface OverlayStore extends OverlayData {
@@ -28,11 +28,11 @@ const useOverlayStore = create<OverlayStore>((set, get) => ({
 			set(() => ({ ...initialState })),
 		showSaveProjectAsOverlay: () =>
 			set(() => {
-				console.log('settin overlay')
+				console.log("settin overlay")
 				return {
-					label: 'Sauvegarder sous',
+					label: "Sauvegarder sous",
 					data: null,
-					overlayType: 'input',
+					overlayType: "input",
 					onFinish: saveProjectAsAction
 				}
 			}),
@@ -48,9 +48,9 @@ const useOverlayStore = create<OverlayStore>((set, get) => ({
 				)
 
 				return {
-					label: 'Charger un projet',
+					label: "Charger un projet",
 					data: projectNames,
-					overlayType: 'listChoice',
+					overlayType: "listChoice",
 					onFinish: loadProjectAsAction,
 				}
 			})

@@ -1,8 +1,8 @@
-import { useContext } from 'react'
+import { useContext } from "react"
 
-import renderMarkdownText from '@/utils/renderMarkdownBody'
-import { CardDataCtx, CardDimensionsCtx } from '../cardContexts'
-import * as S from '../styles'
+import renderMarkdownText from "@/utils/renderMarkdownBody"
+import { CardDataCtx, CardDimensionsCtx } from "../cardContexts"
+import * as S from "../styles"
 
 
 export default function Body() {

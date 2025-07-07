@@ -1,6 +1,6 @@
-import { PrimaryButton } from '@/styles/commonStyledComponents'
-import { Colors } from '@/styles/commonStyles'
-import styled from 'styled-components'
+import { PrimaryButton } from "@/styles/commonStyledComponents"
+import { Colors } from "@/styles/commonStyles"
+import styled from "styled-components"
 
 
 export const InputGroup = styled.div`
