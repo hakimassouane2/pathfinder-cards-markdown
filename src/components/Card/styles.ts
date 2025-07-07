@@ -11,6 +11,7 @@ interface StyledBodyProps {
 
 const traitColor = (trait: string) => {
   const t = trait.trim().toLowerCase();
+  if (t === "unique") return "#800080"; // purple
   if (t === "rare") return "#0c1466"; // blue
   if (t === "uncommon" || t === "peu commun" || t === "peu courant")
     return "#c45500"; // orange

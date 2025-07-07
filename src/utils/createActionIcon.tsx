@@ -2,11 +2,12 @@ import { ActionIcon } from "@/components/Card/styles";
 import { ReactElement } from "react";
 
 export const actionIcons: Record<string, string[]> = {
-  "(a)": ["/a1.png", "one action"],
-  "(aa)": ["/a2.png", "two actions"],
-  "(aaa)": ["/a3.png", "three actions"],
-  "(r)": ["/reaction.png", "variable actions"],
-  "(na)": ["/no_action.png", "noaction"],
+  "1": ["/a1.png", "one action"],
+  "2": ["/a2.png", "two actions"],
+  "3": ["/a3.png", "three actions"],
+  R: ["/reaction.png", "reaction"],
+  "0": ["/no_action.png", "no action"],
+  V: ["/variable.png", "variable"],
 };
 
 export const createActionIcon = (
@@ -14,20 +15,39 @@ export const createActionIcon = (
   height: number,
   index?: number
 ): ReactElement | undefined => {
-  const actionIconData = actionIcons[word];
-
+  const key = word.toUpperCase();
+  if (key === "V") {
+    return (
+      <>
+        <ActionIcon
+          src="/a1.png"
+          alt="one action"
+          height={height}
+          style={{ marginRight: 0 }}
+        />{" "}
+        <span
+          style={{
+            fontFamily: "goodProRegular",
+            fontWeight: "100",
+            marginRight: "2px",
+          }}
+        >
+          -
+        </span>
+        <ActionIcon src="/a3.png" alt="three actions" height={height} />
+      </>
+    );
+  }
+  const actionIconData = actionIcons[key];
   if (!actionIconData) {
     return undefined;
   }
-
-  const actionIcon = (
+  return (
     <ActionIcon
       src={actionIconData[0]}
-      alt={actionIconData[2]}
+      alt={actionIconData[1]}
       height={height}
       key={index}
     />
   );
-
-  return actionIcon;
 };
