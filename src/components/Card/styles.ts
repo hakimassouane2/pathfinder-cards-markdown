@@ -142,6 +142,7 @@ export const ElipsisHeadline = styled.h1`
 export const CardName = styled(ElipsisHeadline)`
   display: flex;
   max-width: 75%;
+  align-items: baseline;
   > div > img {
     height: 12px;
     margin-bottom: 0px;
@@ -169,6 +170,7 @@ export const CardHeader = styled.div`
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 
   border-bottom: 1px solid rgb(119, 119, 119);

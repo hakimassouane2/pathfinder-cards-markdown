@@ -23,7 +23,7 @@ export const createActionIcon = (
           src="/a1.png"
           alt="one action"
           height={height}
-          style={{ marginRight: 0 }}
+          style={{ marginRight: 0, marginLeft: "5px" }}
         />{" "}
         <span
           style={{
@@ -44,6 +44,7 @@ export const createActionIcon = (
   }
   return (
     <ActionIcon
+      style={{ marginLeft: "5px" }}
       src={actionIconData[0]}
       alt={actionIconData[1]}
       height={height}

@@ -17,16 +17,15 @@
  */
 
 import {
-	czechKeywords,
-	czechNumericKeywords,
-	keywords,
-	numericKeywords,
+  czechKeywords,
+  czechNumericKeywords,
+  keywords,
+  numericKeywords,
 } from "@/data/keyWords";
 import { Hr, Paragraph } from "@/styles/commonStyledComponents";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { actionIcons, createActionIcon } from "./createActionIcon";
 
 // Custom components for ReactMarkdown that integrate with existing keyword emphasis
 const MarkdownComponents = {
@@ -72,23 +71,13 @@ function processTextContent(content: React.ReactNode): React.ReactNode {
 // Enhanced emphasizeWords function that works with markdown
 function emphasizeWords(text: string) {
   const words = text.split(" ");
-  const actionIndex = words.findIndex((word) =>
-    Object.keys(actionIcons).includes(word)
-  );
-
   return words.map((word, index) => {
     const shouldBeEmphasized =
-      index < actionIndex ||
       keywords.includes(word) ||
-      // Numeric keywords should only be emphasized when used
-      // together with a number
       (numericKeywords.includes(word) && !isNaN(Number(words[index + 1]))) ||
       czechKeywords.includes(word) ||
       (czechNumericKeywords.includes(word) && !isNaN(Number(words[index + 1])));
-    const icon = createActionIcon(word, 10, index);
-    return icon ? (
-      icon
-    ) : shouldBeEmphasized ? (
+    return shouldBeEmphasized ? (
       <b key={index}>{word} </b>
     ) : (
       <span key={index}>{word} </span>
