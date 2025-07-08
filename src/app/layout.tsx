@@ -66,8 +66,8 @@ const Dropdown = styled.div`
   align-items: flex-start;
 `;
 const DropdownButton = styled.button`
-  background: #bda0a0;
-  color: #5d0000;
+  background: #5d0000;
+  color: #f8f5f0;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -77,9 +77,11 @@ const DropdownButton = styled.button`
   cursor: pointer;
   margin-top: 1rem;
   width: 100%;
+  transition: all 0.3s ease;
   &:hover {
-    background: #fff;
+    background: #bda0a0;
     color: #5d0000;
+    transition: all 0.3s ease;
   }
 `;
 

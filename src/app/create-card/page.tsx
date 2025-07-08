@@ -62,7 +62,7 @@ export default function CreateCard() {
       </PageColumn>
       <PageColumn>
         <Card cardData={cardData} />
-        <PrimaryButton onClick={handleAddCard}>Ajouter une carte</PrimaryButton>
+        <PrimaryButton onClick={handleAddCard}>Sauvegarder</PrimaryButton>
       </PageColumn>
     </S.CreateCardView>
   );
