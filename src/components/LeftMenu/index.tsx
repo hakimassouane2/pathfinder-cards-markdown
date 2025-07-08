@@ -1,6 +1,6 @@
 import { Pages } from "@/enums/pages";
 import { useProjectName } from "@/stores/projectStore";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import styled from "styled-components";
 
 const MenuContainer = styled.div`
@@ -18,8 +18,9 @@ const MenuContainer = styled.div`
   position: relative;
   z-index: 2;
 `;
-const MenuButton = styled.button`
-  background: #bda0a0;
+
+const MenuButton = styled.button<{ $isActive?: boolean }>`
+  background: ${(props) => (props.$isActive ? "#fff" : "#bda0a0")};
   color: #5d0000;
   border: none;
   border-radius: 6px;
@@ -31,7 +32,6 @@ const MenuButton = styled.button`
   transition: background 0.2s, color 0.2s;
   margin-bottom: 0.5rem;
   outline: none;
-  box-shadow: none;
   &:hover {
     background: #fff;
     color: #5d0000;
@@ -77,16 +77,24 @@ const menuItems = [
 
 export default function LeftMenu() {
   const router = useRouter();
+  const pathname = usePathname();
   const projectName = useProjectName();
 
   return (
     <MenuContainer>
       <TopMenuButtonList>
-        {menuItems.map((item, idx) => (
-          <MenuButton key={idx} onClick={() => router.push(item.href)}>
-            {item.label}
-          </MenuButton>
-        ))}
+        {menuItems.map((item, idx) => {
+          const isActive = pathname === item.href;
+          return (
+            <MenuButton
+              key={idx}
+              onClick={() => router.push(item.href)}
+              $isActive={isActive}
+            >
+              {item.label}
+            </MenuButton>
+          );
+        })}
       </TopMenuButtonList>
       <BottomMenuButtonList>
         <p

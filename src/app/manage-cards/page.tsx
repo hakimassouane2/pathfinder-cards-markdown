@@ -12,16 +12,7 @@ import styled from "styled-components";
 const CardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-`;
-const CardPreviewWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #f8f5f0;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 1.2rem 1rem 1.5rem 1rem;
+  justify-items: center;
 `;
 const ActionGroup = styled.div`
   display: flex;
@@ -29,8 +20,8 @@ const ActionGroup = styled.div`
   margin-top: 1rem;
 `;
 const ActionButton = styled.button`
-  background: #bda0a0;
-  color: #5d0000;
+  background: #5d0000;
+  color: #f8f5f0;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -38,10 +29,11 @@ const ActionButton = styled.button`
   font-weight: bold;
   padding: 0.5rem 1.2rem;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: all 0.3s ease;
   &:hover {
-    background: #fff;
+    background: #bda0a0;
     color: #5d0000;
+    transition: all 0.3s ease;
   }
 `;
 const EmptyMsg = styled.div`
@@ -72,8 +64,8 @@ export default function ManageCardsPage() {
       ) : (
         <CardGrid>
           {cards.map((card, idx) => (
-            <CardPreviewWrapper key={idx}>
-              <Card cardData={card} />
+            <>
+              <Card cardData={card} key={idx} />
               <ActionGroup>
                 <ActionButton onClick={() => router.push(`/edit-card/${idx}`)}>
                   Éditer
@@ -86,7 +78,7 @@ export default function ManageCardsPage() {
                   {deleting === idx ? "Suppression..." : "Supprimer"}
                 </ActionButton>
               </ActionGroup>
-            </CardPreviewWrapper>
+            </>
           ))}
         </CardGrid>
       )}
