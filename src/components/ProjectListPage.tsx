@@ -1,6 +1,7 @@
 import { useAuth } from "@/components/FirebaseAuthProvider";
 import { Pages } from "@/enums/pages";
 import { useProjectActions, useProjectName } from "@/stores/projectStore";
+import { deleteProjectFromFirestore } from "@/utils/firestoreProjects";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -80,6 +81,7 @@ export default function ProjectListPage() {
   const currentProjectName = useProjectName();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const avatarRef = useRef<HTMLDivElement>(null);
+  const [deletingProject, setDeletingProject] = useState<string | null>(null);
   // Get user initials for avatar
   const initials = user?.email ? user.email[0].toUpperCase() : "U";
 
@@ -116,6 +118,31 @@ export default function ProjectListPage() {
     }
   };
 
+  const handleDelete = async (projectName: string) => {
+    if (
+      !window.confirm(
+        `Supprimer le projet "${projectName}" ? Cette action est irréversible.`
+      )
+    )
+      return;
+    if (!user) {
+      setError("Utilisateur non authentifié");
+      return;
+    }
+    setDeletingProject(projectName);
+    setError(null);
+    try {
+      await deleteProjectFromFirestore(user, projectName);
+      setProjects((prev) => prev.filter((p) => p.projectName !== projectName));
+      // If the deleted project is the current one, you may want to handle it (optional)
+    } catch (err) {
+      setError("Erreur lors de la suppression du projet");
+      console.error("Error deleting project:", err);
+    } finally {
+      setDeletingProject(null);
+    }
+  };
+
   return (
     <>
       <Main>
@@ -127,12 +154,38 @@ export default function ProjectListPage() {
             <div>Aucun projet trouvé. Créez-en un nouveau !</div>
           ) : (
             projects.map((p) => (
-              <ProjectButton
+              <div
                 key={p.projectName}
-                onClick={() => handleSelect(p.projectName)}
+                style={{ display: "flex", alignItems: "start", width: "100%" }}
               >
-                {p.projectName}
-              </ProjectButton>
+                <ProjectButton
+                  onClick={() => handleSelect(p.projectName)}
+                  style={{ flex: 1 }}
+                  disabled={deletingProject === p.projectName}
+                >
+                  {p.projectName}
+                </ProjectButton>
+                <button
+                  onClick={() => handleDelete(p.projectName)}
+                  disabled={deletingProject === p.projectName}
+                  style={{
+                    marginLeft: 8,
+                    background: "#ffb3b3",
+                    color: "#5d0000",
+                    border: "none",
+                    borderRadius: 6,
+                    padding: "0.7rem 1rem",
+                    fontWeight: "bold",
+                    cursor:
+                      deletingProject === p.projectName
+                        ? "not-allowed"
+                        : "pointer",
+                  }}
+                  title="Supprimer le projet"
+                >
+                  {deletingProject === p.projectName ? "..." : "❌"}
+                </button>
+              </div>
             ))
           )}
           <hr style={{ width: "100%", borderBottom: "1px solid #bda0a0" }} />
