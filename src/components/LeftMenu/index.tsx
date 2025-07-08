@@ -71,7 +71,6 @@ const menuItems = [
   // { label: "Projet", href: Pages.home },
   { label: "Gérer les cartes", href: "/manage-cards" },
   { label: "Créer une carte", href: Pages.createCard },
-  { label: "Importer une carte", href: Pages.importCard },
   { label: "Impression", href: Pages.printView },
 ];
 
