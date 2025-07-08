@@ -668,6 +668,7 @@ export default function CardEditFields({ cardData, onSaveCardData }: Props) {
             }),
           }}
           isMulti
+          closeMenuOnSelect={false}
           options={TRAIT_OPTIONS}
           value={(cardData?.traits || "")
             .split(",")
