@@ -1,4 +1,5 @@
 import { Pages } from "@/enums/pages";
+import { useProjectName } from "@/stores/projectStore";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
@@ -76,6 +77,8 @@ const menuItems = [
 
 export default function LeftMenu() {
   const router = useRouter();
+  const projectName = useProjectName();
+
   return (
     <MenuContainer>
       <TopMenuButtonList>
@@ -86,6 +89,16 @@ export default function LeftMenu() {
         ))}
       </TopMenuButtonList>
       <BottomMenuButtonList>
+        <p
+          style={{
+            fontSize: "0.8rem",
+            color: "#bda0a0",
+            textAlign: "center",
+            marginBottom: "0.5rem",
+          }}
+        >
+          Projet actuel - {projectName}
+        </p>
         <BackToProjectsButton onClick={() => router.push("/dashboard")}>
           Retour aux projets
         </BackToProjectsButton>

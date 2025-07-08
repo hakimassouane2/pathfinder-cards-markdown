@@ -1,7 +1,6 @@
-import styled from "styled-components"
-
+import styled from "styled-components";
 
 export const CreateCardView = styled.div`
-	display: flex;
-	align-items: start;
-`
+  display: flex;
+  align-items: start;
+`;

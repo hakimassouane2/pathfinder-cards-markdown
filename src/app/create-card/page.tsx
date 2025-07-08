@@ -7,21 +7,9 @@ import { emptyCard } from "@/data/emptyCard";
 import { useProjectActions, useProjectName } from "@/stores/projectStore";
 import { PageColumn, PrimaryButton } from "@/styles/commonStyledComponents";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 
 import { useRouter } from "next/navigation";
 import * as S from "./styles";
-
-const CenteredContainer = styled.div`
-  width: 100%;
-  max-width: 1100px;
-  margin: 40px auto 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 32px;
-  padding: 32px 0;
-`;
 
 export default function CreateCard() {
   const [cardData, setCardData] = useState<CardData>(emptyCard);
@@ -68,18 +56,14 @@ export default function CreateCard() {
   }, [user, projectName]);
 
   return (
-    <CenteredContainer>
-      <S.CreateCardView>
-        <PageColumn>
-          <CardEditFields cardData={cardData} onSaveCardData={setCardData} />
-        </PageColumn>
-        <PageColumn>
-          <Card cardData={cardData} />
-          <PrimaryButton onClick={handleAddCard}>
-            Ajouter une carte
-          </PrimaryButton>
-        </PageColumn>
-      </S.CreateCardView>
-    </CenteredContainer>
+    <S.CreateCardView>
+      <PageColumn>
+        <CardEditFields cardData={cardData} onSaveCardData={setCardData} />
+      </PageColumn>
+      <PageColumn>
+        <Card cardData={cardData} />
+        <PrimaryButton onClick={handleAddCard}>Ajouter une carte</PrimaryButton>
+      </PageColumn>
+    </S.CreateCardView>
   );
 }
