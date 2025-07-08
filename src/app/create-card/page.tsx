@@ -1,32 +1,86 @@
-"use client"
+"use client";
 
-import Card from "@/components/Card"
-import CardEditFields from "@/components/CardEdit/CardEditFields"
-import { emptyCard } from "@/data/emptyCard"
-import { useProjectActions } from "@/stores/projectStore"
-import { PageColumn, PrimaryButton } from "@/styles/commonStyledComponents"
-import { useState } from "react"
+import Card from "@/components/Card";
+import CardEditFields from "@/components/CardEdit/CardEditFields";
+import { useAuth } from "@/components/FirebaseAuthProvider";
+import { emptyCard } from "@/data/emptyCard";
+import { useProjectActions, useProjectName } from "@/stores/projectStore";
+import { PageColumn, PrimaryButton } from "@/styles/commonStyledComponents";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import * as S from "./styles"
+import { useRouter } from "next/navigation";
+import * as S from "./styles";
+
+const CenteredContainer = styled.div`
+  width: 100%;
+  max-width: 1100px;
+  margin: 40px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 32px 0;
+`;
 
 export default function CreateCard() {
-	const [cardData, setCardData] = useState<CardData>(emptyCard)
-	const { addCard } = useProjectActions()
+  const [cardData, setCardData] = useState<CardData>(emptyCard);
+  const { addCard } = useProjectActions();
+  const { user } = useAuth();
+  const { saveProjectToCloud, loadProjectFromCloud } = useProjectActions();
+  const projectName = useProjectName();
+  const [cloudStatus, setCloudStatus] = useState<string>("");
 
-	const handleAddCard = () => {
-		addCard(cardData)
-		setCardData(emptyCard)
-	}
+  const router = useRouter();
 
-	return (
-		<S.CreateCardView>
-			<PageColumn>
-				<CardEditFields cardData={cardData} onSaveCardData={setCardData} />
-			</PageColumn>
-			<PageColumn>
-				<Card cardData={cardData} />
-				<PrimaryButton onClick={handleAddCard}>Ajouter une carte</PrimaryButton>
-			</PageColumn>
-		</S.CreateCardView>
-	)
+  if (!user) {
+    router.push("/");
+  }
+
+  const handleAddCard = async () => {
+    addCard(cardData);
+    if (user) {
+      setCloudStatus("Saving to cloud...");
+      try {
+        await saveProjectToCloud();
+        setCloudStatus("Saved to cloud!");
+      } catch (e) {
+        setCloudStatus("Cloud save failed");
+      }
+    } else {
+      setCloudStatus("Saved locally (login for cloud sync)");
+    }
+    setCardData(emptyCard);
+  };
+
+  useEffect(() => {
+    if (user && projectName) {
+      setCloudStatus("Loading from cloud...");
+      loadProjectFromCloud(projectName)
+        .then(() => {
+          setCloudStatus("Loaded from cloud!");
+        })
+        .catch(() => {
+          setCloudStatus("Cloud load failed");
+        });
+    }
+    // eslint-disable-next-line
+  }, [user, projectName]);
+
+  return (
+    <CenteredContainer>
+      <S.CreateCardView>
+        <PageColumn>
+          <CardEditFields cardData={cardData} onSaveCardData={setCardData} />
+          {cloudStatus && <div>{cloudStatus}</div>}
+        </PageColumn>
+        <PageColumn>
+          <Card cardData={cardData} />
+          <PrimaryButton onClick={handleAddCard}>
+            Ajouter une carte
+          </PrimaryButton>
+        </PageColumn>
+      </S.CreateCardView>
+    </CenteredContainer>
+  );
 }

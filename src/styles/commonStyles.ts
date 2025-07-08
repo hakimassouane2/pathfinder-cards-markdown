@@ -1,52 +1,50 @@
-import { createGlobalStyle, css, styled } from "styled-components"
-
+import { createGlobalStyle, css } from "styled-components";
 
 /* COLORS */
 export const Colors = {
-	DarkRed: "#5d0000",
-	DarkRedDisabled: "#bda0a0",
-} as const
-
+  DarkRed: "#5d0000",
+  DarkRedDisabled: "#bda0a0",
+} as const;
 
 export const doNotPrint = css`
-	@media print {
-		display: none;
-	}
-`
+  @media print {
+    display: none;
+  }
+`;
 
 export const fontGoodRegular = css`
-	font-family: 'goodProRegular', 'Arial', sans-serif;
-`
+  font-family: "goodProRegular", "Arial", sans-serif;
+`;
 
 export const fontGoodCondensed = css`
-	font-family: 'goodCondensedMedium', 'Arial', sans-serif;
-`
+  font-family: "goodCondensedMedium", "Arial", sans-serif;
+`;
 
 export const fontgoodCondensedBold = css`
-	font-family: 'goodCondensedBold', 'Arial', sans-serif;
-`
+  font-family: "goodCondensedBold", "Arial", sans-serif;
+`;
 
 export const GlobalStyle = createGlobalStyle`
 	body {
 		${fontGoodRegular}
-		margin: 0;
+		margin: 0 !important;
 	}
 
 	@page {
 	}
 
-`
+`;
 
 export const traitStyle = css`
-	${fontGoodCondensed}
-	font-size: 100%;
-	text-transform: uppercase;
-	line-height: 1;
-	font-weight: bold;
-	letter-spacing: 0.05rem;
-	color: #fff;
-	text-shadow: 0 0 0 #fff;
-	text-align: center;
-	background: ${Colors.DarkRed};
-	border: 2px solid #d8c384;
-`
+  ${fontGoodCondensed}
+  font-size: 100%;
+  text-transform: uppercase;
+  line-height: 1;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+  color: #fff;
+  text-shadow: 0 0 0 #fff;
+  text-align: center;
+  background: ${Colors.DarkRed};
+  border: 2px solid #d8c384;
+`;

@@ -7,7 +7,7 @@ import { useCards } from "@/stores/projectStore";
 
 import * as S from "./styles";
 
-export default function Home() {
+export default function PrintCards() {
   const cards = useCards();
   // Attach original index to each card for correct navigation
   const cardsToPrint = cards.reduce<
@@ -27,7 +27,6 @@ export default function Home() {
     <CardDimensionsCtx.Provider value={standardFFG}>
       <S.PrintView>
         {sortedCardsToPrint.map(({ card, originalIndex }, index) => (
-          // TODO: Replace this with a CardControlWrapper if you want navigation/editing
           <Card cardData={card} key={index} />
         ))}
       </S.PrintView>
