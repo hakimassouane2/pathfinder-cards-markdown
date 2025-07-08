@@ -110,6 +110,21 @@ function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const avatarRef = useRef<HTMLDivElement>(null);
+  const [hasInitializedStore, setHasInitializedStore] = useState(false);
+  const { loadCurrentProject } = useProjectActions();
+
+  useEffect(() => {
+    if (
+      !hasInitializedStore &&
+      typeof window !== "undefined" &&
+      !!loadCurrentProject &&
+      user &&
+      !loading
+    ) {
+      loadCurrentProject();
+      setHasInitializedStore(true);
+    }
+  }, [hasInitializedStore, loadCurrentProject, user, loading]);
 
   // If not authenticated, show only children (login/signup)
   if (!user && !loading) {
@@ -184,25 +199,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
 }
 
 export default function RootLayout({ children }: Props) {
-  const [hasInitializedStore, setHasInitializedStore] = useState(false);
-  const { loadCurrentProject } = useProjectActions();
-
-  /* Page is initially rendered on the server, where local storage is not
-	accessible. Because of that we have to wait until it becomes so before
-	initializing the store from the local storage.
-	https://stackoverflow.com/questions/73853069/solve-referenceerror-localstorage-is-not-defined-in-next-js
-	 */
-  useEffect(() => {
-    if (
-      !hasInitializedStore &&
-      typeof window !== "undefined" &&
-      !!loadCurrentProject
-    ) {
-      loadCurrentProject();
-      setHasInitializedStore(true);
-    }
-  }, [hasInitializedStore, loadCurrentProject]);
-
   return (
     <html lang="en">
       <body style={{ margin: 0 }}>

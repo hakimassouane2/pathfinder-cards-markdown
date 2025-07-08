@@ -2,6 +2,7 @@ import { useAuth } from "@/components/FirebaseAuthProvider";
 import { Pages } from "@/enums/pages";
 import { useProjectActions, useProjectName } from "@/stores/projectStore";
 import { deleteProjectFromFirestore } from "@/utils/firestoreProjects";
+import { saveCurrentProjectNameToLs } from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -71,7 +72,7 @@ const Input = styled.input`
 
 export default function ProjectListPage() {
   const { user, logout } = useAuth();
-  const { loadAllProjectsFromCloud, loadProjectFromCloud, saveProjectAs } =
+  const { loadAllProjectsFromCloud, saveProjectAs, loadProject } =
     useProjectActions();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -94,7 +95,8 @@ export default function ProjectListPage() {
   }, [user]);
 
   const handleSelect = async (projectName: string) => {
-    await loadProjectFromCloud(projectName);
+    await loadProject(projectName);
+    saveCurrentProjectNameToLs(projectName);
     router.push(Pages.manageCards);
   };
 
@@ -108,7 +110,8 @@ export default function ProjectListPage() {
     try {
       console.log("Creating project:", newProjectName.trim());
       await saveProjectAs(newProjectName.trim());
-      await loadProjectFromCloud(newProjectName.trim());
+      await loadProject(newProjectName.trim());
+      saveCurrentProjectNameToLs(newProjectName.trim());
       const updatedProjects = await loadAllProjectsFromCloud();
       setProjects(updatedProjects);
       router.push(Pages.manageCards);

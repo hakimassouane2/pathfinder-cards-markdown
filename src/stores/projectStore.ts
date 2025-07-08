@@ -5,11 +5,6 @@ import {
   saveProjectToFirestore,
 } from "@/utils/firestoreProjects";
 import { create } from "zustand";
-import {
-  loadCurrentProjectFromLs,
-  loadProjectFromLs,
-  saveProjectToLs,
-} from "../utils/localStorage";
 
 interface ProjectStore {
   actions: ProjectActions;
@@ -19,16 +14,15 @@ interface ProjectStore {
 interface ProjectActions {
   addCard: (card: CardData) => void;
   getCardByIndex: (cardIndex: number) => void;
-  loadCurrentProject: () => void;
-  loadProject: (projectName: string) => void;
-  saveCardByIndex: (card: CardData, cardIndex: number) => void;
-  saveProject: () => void;
-  saveProjectAs: (newName: string) => void;
-  changeNumberToPrint: (cardIndex: number, number: number) => void;
-  removeCardByIndex: (cardIndex: number) => void;
-  // Firestore async actions
-  saveProjectToCloud: () => Promise<void>;
-  loadProjectFromCloud: (projectName: string) => Promise<void>;
+  loadCurrentProject: () => Promise<void>;
+  loadProject: (projectName: string) => Promise<void>;
+  saveCardByIndex: (card: CardData, cardIndex: number) => Promise<void>;
+  saveProject: () => Promise<void>;
+  saveProjectAs: (newName: string) => Promise<void>;
+  changeNumberToPrint: (cardIndex: number, number: number) => Promise<void>;
+  removeCardByIndex: (cardIndex: number) => Promise<void>;
+  saveCurrentProjectNameToCloud: (projectName: string) => void;
+  loadCurrentProjectNameFromCloud: () => string | null;
   loadAllProjectsFromCloud: () => Promise<Project[]>;
 }
 
@@ -39,36 +33,48 @@ const getInitialProject = (): Project => {
   };
 };
 
+const CURRENT_PROJECT_KEY = "rpgCards_currentProject";
+
 const useProjectStore = create<ProjectStore>((set, get) => ({
   project: getInitialProject(),
 
   actions: {
-    addCard: (card: CardData) =>
+    addCard: async (card: CardData) => {
       set((state) => {
         const updatedProject = {
           ...state.project,
           cards: [...state.project.cards, card],
         };
-        saveProjectToLs(updatedProject);
-
         return { ...state, project: updatedProject };
-      }),
+      });
+      const user = auth.currentUser;
+      if (!user) throw new Error("Not authenticated");
+      await saveProjectToFirestore(user, get().project);
+    },
 
     getCardByIndex: (cardIndex: number) => get().project.cards?.[cardIndex],
 
-    loadCurrentProject: () =>
-      set((state) => {
-        const currentProject = loadCurrentProjectFromLs();
-        return { ...state, project: currentProject || getInitialProject() };
-      }),
+    loadCurrentProject: async () => {
+      const user = auth.currentUser;
+      const currentProjectName =
+        window.localStorage.getItem(CURRENT_PROJECT_KEY);
+      if (!currentProjectName) {
+        set((state) => ({ ...state, project: getInitialProject() }));
+        return;
+      }
+      if (!user) throw new Error("Not authenticated");
+      const project = await loadProjectFromFirestore(user, currentProjectName);
+      set((state) => ({ ...state, project: project || getInitialProject() }));
+    },
 
-    loadProject: (projectName: string) =>
-      set((state) => {
-        const loadedProject = loadProjectFromLs(projectName);
-        return { ...state, project: loadedProject || getInitialProject() };
-      }),
+    loadProject: async (projectName: string) => {
+      const user = auth.currentUser;
+      if (!user) throw new Error("Not authenticated");
+      const project = await loadProjectFromFirestore(user, projectName);
+      set((state) => ({ ...state, project: project || getInitialProject() }));
+    },
 
-    saveCardByIndex: (card: CardData, cardIndex: number) =>
+    saveCardByIndex: async (card: CardData, cardIndex: number) => {
       set((state) => {
         const project: Project = {
           ...state.project,
@@ -76,50 +82,50 @@ const useProjectStore = create<ProjectStore>((set, get) => ({
             cardIndex === index ? card : currentCard
           ),
         };
-        saveProjectToLs(project);
-
         return { ...state, project: project };
-      }),
+      });
+      const user = auth.currentUser;
+      if (!user) throw new Error("Not authenticated");
+      await saveProjectToFirestore(user, get().project);
+    },
 
     saveProject: async () => {
       const user = auth.currentUser;
-      if (user) {
-        await saveProjectToFirestore(user, get().project);
-      } else {
-        saveProjectToLs(get().project);
-      }
+      if (!user) throw new Error("Not authenticated");
+      await saveProjectToFirestore(user, get().project);
     },
 
     saveProjectAs: async (newName: string) => {
       set((state) => {
         const updatedProject: Project = {
-          ...state.project,
           projectName: newName,
+          cards: [], // Always start with an empty card list for new projects
         };
         return { ...state, project: updatedProject };
       });
       const user = auth.currentUser;
-      if (user) {
-        await saveProjectToFirestore(user, {
-          ...get().project,
-          projectName: newName,
-        });
-      } else {
-        saveProjectToLs({ ...get().project, projectName: newName });
-      }
+      if (!user) throw new Error("Not authenticated");
+      await saveProjectToFirestore(user, {
+        projectName: newName,
+        cards: [],
+      });
+      window.localStorage.setItem(CURRENT_PROJECT_KEY, newName);
     },
 
-    changeNumberToPrint: (cardIndex: number, targetNumber: number) => {
+    changeNumberToPrint: async (cardIndex: number, targetNumber: number) => {
       set((state) => {
         const updatedProject = { ...state.project };
         const updatedCards = [...updatedProject.cards];
         updatedCards[cardIndex].numberToPrint = targetNumber;
-        saveProjectToLs(updatedProject);
+        updatedProject.cards = updatedCards;
         return { ...state, project: updatedProject };
       });
+      const user = auth.currentUser;
+      if (!user) throw new Error("Not authenticated");
+      await saveProjectToFirestore(user, get().project);
     },
 
-    removeCardByIndex: (cardIndex: number) => {
+    removeCardByIndex: async (cardIndex: number) => {
       set((state) => {
         const updatedProject: Project = {
           ...state.project,
@@ -128,22 +134,18 @@ const useProjectStore = create<ProjectStore>((set, get) => ({
             ...state.project.cards.slice(cardIndex + 1),
           ],
         };
-        saveProjectToLs(updatedProject);
-
         return { ...state, project: updatedProject };
       });
-    },
-    // Firestore async actions
-    saveProjectToCloud: async () => {
       const user = auth.currentUser;
       if (!user) throw new Error("Not authenticated");
       await saveProjectToFirestore(user, get().project);
     },
-    loadProjectFromCloud: async (projectName: string) => {
-      const user = auth.currentUser;
-      if (!user) throw new Error("Not authenticated");
-      const project = await loadProjectFromFirestore(user, projectName);
-      set((state) => ({ ...state, project: project || getInitialProject() }));
+
+    saveCurrentProjectNameToCloud: (projectName: string) => {
+      window.localStorage.setItem(CURRENT_PROJECT_KEY, projectName);
+    },
+    loadCurrentProjectNameFromCloud: () => {
+      return window.localStorage.getItem(CURRENT_PROJECT_KEY);
     },
     loadAllProjectsFromCloud: async () => {
       const user = auth.currentUser;

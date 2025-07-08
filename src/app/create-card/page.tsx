@@ -4,56 +4,29 @@ import Card from "@/components/Card";
 import CardEditFields from "@/components/CardEdit/CardEditFields";
 import { useAuth } from "@/components/FirebaseAuthProvider";
 import { emptyCard } from "@/data/emptyCard";
-import { useProjectActions, useProjectName } from "@/stores/projectStore";
+import { useProjectActions } from "@/stores/projectStore";
 import { PageColumn, PrimaryButton } from "@/styles/commonStyledComponents";
-import { useEffect, useState } from "react";
-
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import * as S from "./styles";
 
 export default function CreateCard() {
   const [cardData, setCardData] = useState<CardData>(emptyCard);
   const { addCard } = useProjectActions();
   const { user } = useAuth();
-  const { saveProjectToCloud, loadProjectFromCloud } = useProjectActions();
-  const projectName = useProjectName();
-  const [cloudStatus, setCloudStatus] = useState<string>("");
-
   const router = useRouter();
 
-  if (!user) {
-    router.push("/");
-  }
-
-  const handleAddCard = async () => {
-    addCard(cardData);
-    if (user) {
-      setCloudStatus("Saving to cloud...");
-      try {
-        await saveProjectToCloud();
-        setCloudStatus("Saved to cloud!");
-      } catch (e) {
-        setCloudStatus("Cloud save failed");
-      }
-    } else {
-      setCloudStatus("Saved locally (login for cloud sync)");
-    }
-    setCardData(emptyCard);
-  };
-
   useEffect(() => {
-    if (user && projectName) {
-      setCloudStatus("Loading from cloud...");
-      loadProjectFromCloud(projectName)
-        .then(() => {
-          setCloudStatus("Loaded from cloud!");
-        })
-        .catch(() => {
-          setCloudStatus("Cloud load failed");
-        });
+    if (!user) {
+      router.push("/");
     }
     // eslint-disable-next-line
-  }, [user, projectName]);
+  }, [user]);
+
+  const handleAddCard = async () => {
+    await addCard(cardData);
+    setCardData(emptyCard);
+  };
 
   return (
     <S.CreateCardView>

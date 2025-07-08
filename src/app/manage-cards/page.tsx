@@ -1,12 +1,13 @@
 "use client";
 import Card from "@/components/Card";
+import { useAuth } from "@/components/FirebaseAuthProvider";
 import {
   useCards,
   useProjectActions,
   useProjectName,
 } from "@/stores/projectStore";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CardGrid = styled.div`
@@ -45,15 +46,22 @@ const EmptyMsg = styled.div`
 
 export default function ManageCardsPage() {
   const cards = useCards();
-  const { removeCardByIndex, saveProjectToCloud } = useProjectActions();
+  const { removeCardByIndex, loadCurrentProject } = useProjectActions();
+  const { user } = useAuth();
   const projectName = useProjectName();
   const router = useRouter();
   const [deleting, setDeleting] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (user) {
+      loadCurrentProject();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   const handleDelete = async (idx: number) => {
     setDeleting(idx);
-    removeCardByIndex(idx);
-    await saveProjectToCloud();
+    await removeCardByIndex(idx);
     setDeleting(null);
   };
 
