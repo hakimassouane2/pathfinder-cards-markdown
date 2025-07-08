@@ -10,11 +10,12 @@ const Main = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
+  height: calc(100vh - 60px);
 `;
 const Card = styled.div`
   background: #5d0000;
   color: #fff;
-  padding: 2.5rem 2rem;
+  padding: 0 2rem 2.5rem 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   width: 100%;
@@ -48,7 +49,7 @@ const ProjectButton = styled.button`
 `;
 const NewProjectForm = styled.form`
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 0.7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,6 +62,9 @@ const Input = styled.input`
   border-radius: 6px;
   font-size: 1.1rem;
   font-family: "goodProRegular", "Arial", sans-serif;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 `;
 
 export default function ProjectListPage() {
@@ -131,6 +135,7 @@ export default function ProjectListPage() {
               </ProjectButton>
             ))
           )}
+          <hr style={{ width: "100%", borderBottom: "1px solid #bda0a0" }} />
           <NewProjectForm onSubmit={handleCreate}>
             <Input
               type="text"
