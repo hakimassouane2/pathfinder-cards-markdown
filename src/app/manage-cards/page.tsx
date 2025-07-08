@@ -11,8 +11,9 @@ import styled from "styled-components";
 
 const CardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 3fr);
   justify-items: center;
+  gap: 1rem;
 `;
 const ActionGroup = styled.div`
   display: flex;
@@ -64,8 +65,15 @@ export default function ManageCardsPage() {
       ) : (
         <CardGrid>
           {cards.map((card, idx) => (
-            <>
-              <Card cardData={card} key={idx} />
+            <div
+              key={idx}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Card cardData={card} />
               <ActionGroup>
                 <ActionButton onClick={() => router.push(`/edit-card/${idx}`)}>
                   Éditer
@@ -78,7 +86,7 @@ export default function ManageCardsPage() {
                   {deleting === idx ? "Suppression..." : "Supprimer"}
                 </ActionButton>
               </ActionGroup>
-            </>
+            </div>
           ))}
         </CardGrid>
       )}
