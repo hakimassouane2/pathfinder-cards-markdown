@@ -72,7 +72,6 @@ export default function CreateCard() {
       <S.CreateCardView>
         <PageColumn>
           <CardEditFields cardData={cardData} onSaveCardData={setCardData} />
-          {cloudStatus && <div>{cloudStatus}</div>}
         </PageColumn>
         <PageColumn>
           <Card cardData={cardData} />

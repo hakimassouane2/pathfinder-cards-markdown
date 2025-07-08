@@ -1,41 +1,10 @@
 import { useAuth } from "@/components/FirebaseAuthProvider";
 import { useProjectActions, useProjectName } from "@/stores/projectStore";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-const TopBar = styled.div`
-  width: 100vw;
-  background: #5d0000;
-  color: #fff;
-  padding: 1.2rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  font-family: "goodProBold", "Arial", sans-serif;
-  font-size: 1.2rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-`;
-const LogoutButton = styled.button`
-  background: #bda0a0;
-  color: #5d0000;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: "goodProBold", "Arial", sans-serif;
-  padding: 0.5rem 1.2rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  &:hover {
-    background: #fff;
-  }
-`;
 const Main = styled.div`
-  min-height: 100vh;
   background: #f8f5f0;
   display: flex;
   align-items: center;
@@ -104,6 +73,10 @@ export default function ProjectListPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const currentProjectName = useProjectName();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  // Get user initials for avatar
+  const initials = user?.email ? user.email[0].toUpperCase() : "U";
 
   useEffect(() => {
     if (!user) return;
@@ -140,20 +113,9 @@ export default function ProjectListPage() {
 
   return (
     <>
-      <TopBar>
-        <span>Bienvenue, {user?.email} !</span>
-        <LogoutButton
-          onClick={() => {
-            logout();
-            router.push("/");
-          }}
-        >
-          Se déconnecter
-        </LogoutButton>
-      </TopBar>
       <Main>
         <Card>
-          <Title>Vos projets</Title>
+          <Title>Projets</Title>
           {loading ? (
             <div>Chargement...</div>
           ) : projects.length === 0 ? (

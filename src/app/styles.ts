@@ -23,6 +23,7 @@ export const Project = styled.div`
 
 export const MenuWrapper = styled.div`
   display: flex;
+  height: calc(100vh - 60px);
 `;
 
 const leftMenuWidth = 170;
@@ -35,6 +36,7 @@ export const LeftMenuWrapper = styled.div`
   display: flex;
   flex-flow: column;
   width: ${leftMenuWidth}px;
+  height: 100%;
 `;
 
 export const ProjectName = styled.h1`

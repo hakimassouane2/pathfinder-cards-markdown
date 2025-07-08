@@ -28,7 +28,6 @@ export default function ImportCard() {
   return (
     <>
       <CardEdit initialCard={emptyCard} cardIndex={null} />
-      {cloudStatus && <div>{cloudStatus}</div>}
     </>
   );
 }

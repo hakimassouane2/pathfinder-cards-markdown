@@ -9,23 +9,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 40px auto 0 auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-  padding: 2rem 2rem 2.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-`;
-const Title = styled.h2`
-  font-family: "goodProBold", "Arial", sans-serif;
-  font-size: 2rem;
-  color: #5d0000;
-  margin-bottom: 1.5rem;
-`;
 const CardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -83,8 +66,7 @@ export default function ManageCardsPage() {
   };
 
   return (
-    <Container>
-      <Title>Gérer les cartes du projet {projectName}</Title>
+    <>
       {cards.length === 0 ? (
         <EmptyMsg>Aucune carte dans ce projet.</EmptyMsg>
       ) : (
@@ -108,6 +90,6 @@ export default function ManageCardsPage() {
           ))}
         </CardGrid>
       )}
-    </Container>
+    </>
   );
 }

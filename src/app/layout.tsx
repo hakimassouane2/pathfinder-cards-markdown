@@ -31,9 +31,7 @@ const TopBar = styled.div`
   box-sizing: border-box;
   font-family: "goodProBold", "Arial", sans-serif;
   font-size: 1.2rem;
-  top: 0;
-  left: 0;
-  z-index: 10;
+  height: 60px;
   @media print {
     display: none;
   }
@@ -84,22 +82,6 @@ const DropdownButton = styled.button`
     color: #5d0000;
   }
 `;
-const TopBarButton = styled.button`
-  background: #bda0a0;
-  color: #5d0000;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: "goodProBold", "Arial", sans-serif;
-  font-weight: bold;
-  padding: 0.5rem 1.2rem;
-  cursor: pointer;
-  margin-right: 1rem;
-  &:hover {
-    background: #fff;
-    color: #5d0000;
-  }
-`;
 
 const MainContent = styled.div`
   flex: 1;
@@ -107,7 +89,13 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 100vh;
+  padding: 1rem;
+  background-color: #f8f5f0;
+
+  @media print {
+    padding: 0;
+    background-color: #fff;
+  }
 `;
 
 function AppShell({ children }: { children: React.ReactNode }) {
@@ -138,7 +126,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
       {showTopBar && (
         <TopBar>
           <span style={{ fontWeight: "bold", fontSize: "1.3rem" }}>
-            Pathfinder 2E card tool
+            PF2E Card Tool
           </span>
           <div
             style={{
@@ -147,9 +135,6 @@ function AppShell({ children }: { children: React.ReactNode }) {
               position: "relative",
             }}
           >
-            <TopBarButton onClick={() => router.push("/dashboard")}>
-              Retour aux projets
-            </TopBarButton>
             <Avatar ref={avatarRef} onClick={() => setDropdownOpen((v) => !v)}>
               {initials}
             </Avatar>
@@ -158,7 +143,14 @@ function AppShell({ children }: { children: React.ReactNode }) {
                 <div style={{ marginBottom: "0.5rem", fontWeight: "bold" }}>
                   {user?.email}
                 </div>
-                <DropdownButton onClick={logout}>Se déconnecter</DropdownButton>
+                <DropdownButton
+                  onClick={() => {
+                    logout();
+                    router.push("/");
+                  }}
+                >
+                  Se déconnecter
+                </DropdownButton>
               </Dropdown>
             )}
           </div>

@@ -43,7 +43,6 @@ export default function EditCard({ params }: Props) {
           cardIndex={card === emptyCard ? null : numericCardIndex}
         />
       )}
-      {cloudStatus && <div>{cloudStatus}</div>}
     </>
   );
 }
