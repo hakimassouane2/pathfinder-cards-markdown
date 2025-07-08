@@ -1,4 +1,5 @@
 import { useAuth } from "@/components/FirebaseAuthProvider";
+import { Pages } from "@/enums/pages";
 import { useProjectActions, useProjectName } from "@/stores/projectStore";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -92,7 +93,7 @@ export default function ProjectListPage() {
 
   const handleSelect = async (projectName: string) => {
     await loadProjectFromCloud(projectName);
-    router.push("/create-card");
+    router.push(Pages.manageCards);
   };
 
   const handleCreate = async (e: React.FormEvent) => {
@@ -108,7 +109,7 @@ export default function ProjectListPage() {
       await loadProjectFromCloud(newProjectName.trim());
       const updatedProjects = await loadAllProjectsFromCloud();
       setProjects(updatedProjects);
-      router.push("/create-card");
+      router.push(Pages.manageCards);
     } catch (err: any) {
       setError("Erreur lors de la création du projet");
       console.error("Error creating project:", err);
@@ -131,7 +132,6 @@ export default function ProjectListPage() {
                 onClick={() => handleSelect(p.projectName)}
               >
                 {p.projectName}
-                {p.projectName === currentProjectName ? " (actif)" : ""}
               </ProjectButton>
             ))
           )}
