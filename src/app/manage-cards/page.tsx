@@ -10,9 +10,8 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const CardGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 3fr);
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 const ActionGroup = styled.div`
@@ -64,30 +63,34 @@ export default function ManageCardsPage() {
         <EmptyMsg>Aucune carte dans ce projet.</EmptyMsg>
       ) : (
         <CardGrid>
-          {cards.map((card, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Card cardData={card} />
-              <ActionGroup>
-                <ActionButton onClick={() => router.push(`/edit-card/${idx}`)}>
-                  Éditer
-                </ActionButton>
-                <ActionButton
-                  onClick={() => handleDelete(idx)}
-                  disabled={deleting === idx}
-                  style={{ opacity: deleting === idx ? 0.6 : 1 }}
-                >
-                  {deleting === idx ? "Suppression..." : "Supprimer"}
-                </ActionButton>
-              </ActionGroup>
-            </div>
-          ))}
+          {cards
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((card, idx) => (
+              <div
+                key={idx}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Card cardData={card} />
+                <ActionGroup>
+                  <ActionButton
+                    onClick={() => router.push(`/edit-card/${idx}`)}
+                  >
+                    Éditer
+                  </ActionButton>
+                  <ActionButton
+                    onClick={() => handleDelete(idx)}
+                    disabled={deleting === idx}
+                    style={{ opacity: deleting === idx ? 0.6 : 1 }}
+                  >
+                    {deleting === idx ? "Suppression..." : "Supprimer"}
+                  </ActionButton>
+                </ActionGroup>
+              </div>
+            ))}
         </CardGrid>
       )}
     </>

@@ -91,12 +91,14 @@ const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-x: auto;
   padding: 1rem;
   background-color: #f8f5f0;
 
   @media print {
     padding: 0;
     background-color: #fff;
+    overflow-x: visible;
   }
 `;
 
@@ -171,7 +173,7 @@ function AppShell({ children }: { children: React.ReactNode }) {
             <LeftMenu />
           </S.LeftMenuWrapper>
           <MainContent>
-            <div>{children}</div>
+            <div style={{ width: "100%" }}>{children}</div>
           </MainContent>
         </S.MenuWrapper>
       ) : (
