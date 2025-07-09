@@ -27,7 +27,20 @@ export const Card = styled.div<CardDimensions>`
   border: 1px solid #e1e1e1;
   @media print {
     margin: 0;
+    padding: 2mm !important;
+    font-size: ${(props) => props.width / 28}mm !important;
     break-inside: avoid;
+    page-break-inside: avoid;
+    /* Ensure exact physical size when printing */
+    width: ${(props) => props.width}mm !important;
+    height: ${(props) => props.height}mm !important;
+    transform: none !important;
+    zoom: 1 !important;
+    /* Remove any scaling that might affect print size */
+    max-width: none !important;
+    max-height: none !important;
+    min-width: ${(props) => props.width}mm !important;
+    min-height: ${(props) => props.height}mm !important;
   }
 `;
 

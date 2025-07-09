@@ -13,6 +13,17 @@ export const PrintPage = styled.div`
   }
 
   @media print {
+    /* Global print styles to ensure proper card sizing */
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Ensure no scaling occurs during print */
+    html, body {
+      zoom: 1 !important;
+      transform: none !important;
+      scale: 1 !important;
+    }
   }
 `;
 
