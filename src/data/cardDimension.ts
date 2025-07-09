@@ -1,4 +1,4 @@
 export const standardFFG: CardDimensions = {
-	width: 63,
-	height: 88,
+  width: 61.5,
+  height: 86.9,
 }
