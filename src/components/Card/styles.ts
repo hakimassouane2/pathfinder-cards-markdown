@@ -24,7 +24,8 @@ export const Card = styled.div<CardDimensions>`
   background-color: antiquewhite;
   padding: 2mm;
   font-size: ${(props) => props.width / 25}mm;
-  border: 1px solid #e1e1e1;
+  border: 0.1mm solid #e1e1e1;
+  box-sizing: border-box;
 `;
 
 export const Body = styled.div<StyledBodyProps>`
